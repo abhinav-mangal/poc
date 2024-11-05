@@ -1,0 +1,9 @@
+{
+  "@@last_modified": "2024-11-04T12:43:01.290541",
+  "title": "Página de inicio de demostración de Flutter",
+  "@title": {
+    "description": "The application title",
+    "type": "text",
+    "placeholders": {}
+  }
+}

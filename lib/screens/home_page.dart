@@ -1,4 +1,5 @@
 import 'package:contacts_app/cubit/home_cubit.dart';
+import 'package:contacts_app/localizations/localizations_utils.dart';
 import 'package:contacts_app/model/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,7 +14,7 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
             // backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-            title: Text(title)),
+            title: Text(Strings.of(context).title)),
         body: RefreshIndicator.adaptive(
           onRefresh: () => context.read<HomeCubit>().apiCall(),
           child: BlocBuilder<HomeCubit, UsersModel?>(

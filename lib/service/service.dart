@@ -1,9 +1,12 @@
 import 'package:contacts_app/Utils/constants.dart';
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 
 class ApiService {
+  final dio = Dio();
+
   Future<dynamic> get({String endpoint = "users?limit=5"}) async {
-    final response = await http.get(Uri.parse('${Constants.baseUrl}/$endpoint'));
+    interceptors();
+    final response = await dio.get('${Constants.baseUrl}/$endpoint');
     return _handleResponse(response);
   }
 
@@ -16,11 +19,23 @@ class ApiService {
   //   return _handleResponse(response);
   // }
 
-  _handleResponse(http.Response response) {
-    if (response.statusCode >= 200 && response.statusCode < 300) {
+  Response _handleResponse(Response response) {
+    if (response.statusCode! >= 200 && response.statusCode! < 300) {
       return response;
     } else {
       throw Exception('HTTP Error: ${response.statusCode}');
     }
+  }
+
+  interceptors() {
+    dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) {
+          // Add a custom header to the request
+          // options.headers['Authorization'] = 'Bearer my_token';
+          return handler.next(options);
+        },
+      ),
+    );
   }
 }
